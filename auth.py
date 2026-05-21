@@ -1,4 +1,5 @@
 import yaml
+import os
 import streamlit as st
 import bcrypt
 import streamlit_authenticator as stauth
@@ -7,12 +8,16 @@ from yaml.loader import SafeLoader
 CONFIG_PATH = "config.yaml"
 
 def load_config():
+    config_str = os.getenv("CONFIG_YAML")
+    if config_str:
+        return yaml.safe_load(config_str)
     with open(CONFIG_PATH) as file:
         return yaml.load(file, Loader=SafeLoader)
 
 def save_config(config):
-    with open(CONFIG_PATH, "w") as file:
-        yaml.dump(config, file, default_flow_style=False, allow_unicode=True)
+    if not os.getenv("CONFIG_YAML"):
+        with open(CONFIG_PATH, "w") as file:
+            yaml.dump(config, file, default_flow_style=False, allow_unicode=True)
 
 def get_authenticator():
     config = load_config()
@@ -33,7 +38,7 @@ def check_session():
 def clear_session_cookie():
     st.session_state["authentication_status"] = False
     st.session_state["username"] = None
-    st.session_state["name"] = None
+    st.session_state["name"]     = None
 
 def register_user(nombre, username, email, password):
     config = load_config()
