@@ -33,6 +33,16 @@ def get_authenticator():
 def check_session():
     if st.session_state.get("authentication_status"):
         return True
+
+    # Intentar leer cookie
+    try:
+        authenticator, config = get_authenticator()
+        authenticator.login("Login", "unrendered")
+        if st.session_state.get("authentication_status"):
+            return True
+    except:
+        pass
+
     return False
 
 def clear_session_cookie():
