@@ -1,0 +1,11 @@
+credentials:
+  usernames:
+    admin:
+      email: juanowenbyrne@gmail.com
+      name: Juan
+      password: $2b$12$Nmtz/8K0dk0/B24wtYnhQOg3giDsntz98480muuTupEmrOsV2kSQO
+
+cookie:
+  expiry_days: 30
+  key: maicrotrack_secret_key_2026
+  name: maicrotrack_cookie
